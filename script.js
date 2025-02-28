@@ -83,6 +83,45 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
+    // Modal Email
+    const emailModal = document.getElementById('emailModal');
+    const emailBtn = document.getElementById('emailBtn');
+    const closeEmailBtn = emailModal?.querySelector('.close-modal');
+    const copyBtn = emailModal?.querySelector('.copy-btn');
+    const emailInput = emailModal?.querySelector('.email-input');
+
+    if (emailModal && emailBtn && closeEmailBtn && copyBtn && emailInput) {
+        emailBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            emailModal.style.display = 'block';
+        });
+
+        closeEmailBtn.addEventListener('click', function() {
+            emailModal.style.display = 'none';
+        });
+
+        window.addEventListener('click', function(e) {
+            if (e.target == emailModal) {
+                emailModal.style.display = 'none';
+            }
+        });
+
+        copyBtn.addEventListener('click', async function() {
+            try {
+                await navigator.clipboard.writeText(emailInput.value);
+                copyBtn.classList.add('copied');
+                copyBtn.innerHTML = '<i class="fas fa-check"></i> Copiado!';
+                
+                setTimeout(() => {
+                    copyBtn.classList.remove('copied');
+                    copyBtn.innerHTML = '<i class="fas fa-copy"></i> Copiar';
+                }, 2000);
+            } catch (err) {
+                console.error('Falha ao copiar texto: ', err);
+            }
+        });
+    }
+
     // Book hover effect
     const bookCoverDiv = document.querySelector('.book-cover');
     if (bookCoverDiv) {
