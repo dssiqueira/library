@@ -47,23 +47,17 @@ document.addEventListener('DOMContentLoaded', function() {
     // Modal Imagem
     const imageModal = document.getElementById('imageModal');
     const bookCover = document.querySelector('.book-cover img');
-    const closeImageBtn = imageModal?.querySelector('.close-modal');
 
-    if (imageModal && bookCover && closeImageBtn) {
+    if (imageModal && bookCover) {
         bookCover.style.cursor = 'pointer';
         
         bookCover.addEventListener('click', function() {
             imageModal.style.display = 'block';
         });
 
-        closeImageBtn.addEventListener('click', function() {
+        // Fecha o modal ao clicar em qualquer lugar
+        imageModal.addEventListener('click', function() {
             imageModal.style.display = 'none';
-        });
-
-        window.addEventListener('click', function(e) {
-            if (e.target == imageModal) {
-                imageModal.style.display = 'none';
-            }
         });
     }
 

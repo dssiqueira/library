@@ -271,7 +271,7 @@ input:checked + .slider:before {
     height: 100%;
     background: rgba(0, 0, 0, 0.5);
     backdrop-filter: blur(5px);
-    z-index: 1000;
+    z-index: 2000;
 }
 
 .modal-content {
@@ -378,6 +378,7 @@ input:checked + .slider:before {
     justify-content: center;
     align-items: center;
     padding: 0 !important;
+    position: relative;
 }
 
 .modal-image {
@@ -388,14 +389,34 @@ input:checked + .slider:before {
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
 }
 
-.image-modal-content .close-modal {
-    color: white;
-    right: -2rem;
-    top: -2rem;
-}
+/* Ajuste para mobile */
+@media screen and (max-width: 768px) {
+    .modal-content {
+        margin: 2vh auto;
+        padding: 1.5rem;
+    }
 
-.image-modal-content .close-modal:hover {
-    color: #ddd;
+    .book {
+        padding: 1.5rem;
+        max-width: 306px;
+    }
+
+    .book-info h2 {
+        font-size: 1.5rem;
+    }
+
+    .subtitle {
+        font-size: 1rem;
+    }
+
+    .buttons {
+        flex-direction: column;
+    }
+
+    .btn {
+        width: 100%;
+        justify-content: center;
+    }
 }
 
 /* Botão flutuante de contribuir */
@@ -572,34 +593,4 @@ input:checked + .slider:before {
 
 [data-theme="dark"] .contribute-btn {
     border: 1px solid rgba(255, 255, 255, 0.05);
-}
-
-/* Mobile styles */
-@media screen and (max-width: 768px) {
-    .modal-content {
-        margin: 2vh auto;
-        padding: 1.5rem;
-    }
-
-    .book {
-        padding: 1.5rem;
-        max-width: 306px;
-    }
-
-    .book-info h2 {
-        font-size: 1.5rem;
-    }
-
-    .subtitle {
-        font-size: 1rem;
-    }
-
-    .buttons {
-        flex-direction: column;
-    }
-
-    .btn {
-        width: 100%;
-        justify-content: center;
-    }
 }
