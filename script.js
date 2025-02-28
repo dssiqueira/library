@@ -67,6 +67,28 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
+    // Modal Contribuição
+    const contributeModal = document.getElementById('contributeModal');
+    const contributeBtn = document.getElementById('contributeBtn');
+    const closeContributeBtn = contributeModal?.querySelector('.close-modal');
+
+    if (contributeModal && contributeBtn && closeContributeBtn) {
+        contributeBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            contributeModal.style.display = 'block';
+        });
+
+        closeContributeBtn.addEventListener('click', function() {
+            contributeModal.style.display = 'none';
+        });
+
+        window.addEventListener('click', function(e) {
+            if (e.target == contributeModal) {
+                contributeModal.style.display = 'none';
+            }
+        });
+    }
+
     // Book hover effect
     const bookCoverDiv = document.querySelector('.book-cover');
     if (bookCoverDiv) {

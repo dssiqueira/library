@@ -424,6 +424,88 @@ input:checked + .slider:before {
     background: linear-gradient(135deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02));
 }
 
+/* Estilos para o modal de contribuição */
+.contribute-section {
+    padding: 20px 0;
+}
+
+.contribute-list {
+    list-style: none;
+    padding: 0;
+    margin: 20px 0;
+}
+
+.contribute-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 15px;
+    padding: 15px;
+    margin-bottom: 15px;
+    background: var(--highlight-bg);
+    border-radius: 10px;
+    transition: all 0.3s ease;
+}
+
+.contribute-list li:hover {
+    transform: translateX(5px);
+}
+
+.contribute-list li i {
+    font-size: 24px;
+    color: var(--gradient-start);
+}
+
+.contribute-list li div {
+    flex: 1;
+}
+
+.contribute-list li strong {
+    display: block;
+    margin-bottom: 5px;
+    color: var(--text-primary);
+}
+
+.contribute-list li p {
+    margin: 0;
+    color: var(--text-secondary);
+    font-size: 0.95em;
+}
+
+.contribute-actions {
+    display: flex;
+    gap: 15px;
+    margin-top: 30px;
+    flex-wrap: wrap;
+}
+
+.contribute-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 24px;
+    border-radius: 25px;
+    text-decoration: none;
+    color: white;
+    background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+    transition: all 0.3s ease;
+    font-size: 15px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.contribute-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.2);
+}
+
+/* Ajuste para tema escuro */
+[data-theme="dark"] .contribute-list li {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+[data-theme="dark"] .contribute-btn {
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
 /* Mobile styles */
 @media screen and (max-width: 768px) {
     .modal-content {
