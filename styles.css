@@ -671,3 +671,205 @@ input:checked + .slider:before {
 [data-theme="dark"] .contribute-btn {
     border: 1px solid rgba(255, 255, 255, 0.05);
 }
+
+/* Botão de ajuda no modal info */
+.help-action {
+    margin-top: 30px;
+    text-align: center;
+}
+
+.help-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 15px 30px;
+    border: none;
+    border-radius: 12px;
+    background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+    color: white;
+    font-size: 1.1em;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.2);
+}
+
+.help-btn i {
+    font-size: 1.2em;
+}
+
+.help-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(102, 126, 234, 0.3);
+}
+
+/* Ajuste para mobile */
+@media screen and (max-width: 768px) {
+    .help-btn {
+        width: 100%;
+        justify-content: center;
+        padding: 12px 20px;
+        font-size: 1em;
+    }
+}
+
+/* Modal de Formulário de Ajuda */
+.help-modal-content {
+    max-width: 600px;
+    width: 90%;
+}
+
+.help-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.form-group label {
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    padding: 12px 15px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    font-size: 16px;
+    background: transparent;
+    color: var(--text-primary);
+    transition: border-color 0.3s ease;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: var(--gradient-start);
+}
+
+.form-group textarea {
+    min-height: 150px;
+    resize: vertical;
+}
+
+.char-counter {
+    font-size: 14px;
+    color: var(--text-secondary);
+    text-align: right;
+    margin-top: 0.5rem;
+}
+
+.submit-btn {
+    background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.submit-btn:hover {
+    transform: translateY(-2px);
+}
+
+.submit-btn:active {
+    transform: translateY(0);
+    opacity: 0.9;
+}
+
+.success-message {
+    text-align: center;
+    padding: 2rem;
+}
+
+.success-message i {
+    font-size: 48px;
+    color: #4CAF50;
+    margin-bottom: 1rem;
+}
+
+.success-message h3 {
+    color: var(--text-primary);
+    margin-bottom: 0.5rem;
+}
+
+.success-message p {
+    color: var(--text-secondary);
+}
+
+/* Animação de fade para o success message */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.success-message {
+    animation: fadeIn 0.5s ease forwards;
+}
+
+/* Ajuste para mobile */
+@media screen and (max-width: 768px) {
+    .help-modal-content {
+        margin: 10px;
+        padding: 15px;
+    }
+
+    .submit-btn {
+        width: 100%;
+    }
+}
+
+/* Estilos para o asterisco de campo obrigatório */
+.required::after {
+    content: '*';
+    color: #ff4444;
+    margin-left: 4px;
+}
+
+/* Ajustes para o modal de ajuda */
+.help-modal-content {
+    max-width: 600px;
+}
+
+/* Estilos para validação de email */
+.form-group input[type="email"].invalid {
+    border-color: #ff4444;
+    background-color: #fff8f8;
+}
+
+.form-group input[type="email"].valid {
+    border-color: #4CAF50;
+    background-color: #f8fff8;
+}
+
+.email-validation-message {
+    font-size: 12px;
+    margin-top: 4px;
+    display: none;
+}
+
+.email-validation-message.error {
+    color: #ff4444;
+    display: block;
+}

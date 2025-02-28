@@ -70,6 +70,13 @@
                     <i class="fas fa-lightbulb"></i>
                     <p>Se o seu desafio é transformar algo legado em algo novo sem parar tudo no meio do caminho, este handbook é para você.</p>
                 </div>
+
+                <div class="help-action">
+                    <button class="help-btn" id="helpBtn">
+                        <i class="fas fa-hands-helping"></i>
+                        Quero ajuda para usar esse modelo
+                    </button>
+                </div>
             </div>
         </div>
     </div>
@@ -153,7 +160,7 @@
                     <p class="email-note">Não precisa de formalidades, pode ser direto ao ponto!</p>
                 </div>
                 <div class="email-copy-container">
-                    <input type="text" value="douglas.siqueira.silva@gmail.com" readonly class="email-input">
+                    <input type="text" value="handbook@dsiqueira.com" readonly class="email-input">
                     <button class="copy-btn">
                         <i class="fas fa-copy"></i>
                         Copiar
@@ -162,7 +169,61 @@
             </div>
         </div>
     </div>
+    <!-- Modal de Formulário de Ajuda -->
+    <div id="helpModal" class="modal">
+        <div class="modal-content help-modal-content">
+            <span class="close-modal">&times;</span>
+            <div class="modal-header">
+                <h2>Me ajude a começar</h2>
+            </div>
+            <div class="modal-body">
+                <form id="helpForm" class="help-form">
+                    <div class="form-group">
+                        <label for="name" class="required">Nome</label>
+                        <input type="text" id="name" name="name" maxlength="50" pattern="[A-Za-zÀ-ÿ\s]+" placeholder="Insira seu nome" required>
+                    </div>
 
+                    <div class="form-group">
+                        <label for="email" class="required">E-mail</label>
+                        <input type="email" id="email" name="email" maxlength="50" placeholder="Insira seu e-mail" required>
+                        <div class="email-validation-message">Por favor, insira um e-mail válido</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="area" class="required">Área</label>
+                        <select id="area" name="area" required>
+                            <option value="">Selecione sua área</option>
+                            <option value="C-Level">C-Level</option>
+                            <option value="Marketing">Marketing</option>
+                            <option value="Negocios">Negócios</option>
+                            <option value="Produto">Produto</option>
+                            <option value="Projetos">Projetos</option>
+                            <option value="Tecnologia">Tecnologia</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="details" class="required">Detalhes</label>
+                        <textarea id="details" name="details" maxlength="500" placeholder="Descreva como podemos ajudar" required></textarea>
+                        <div class="char-counter"><span id="charCount">0</span>/500</div>
+                    </div>
+
+                    <button type="submit" class="submit-btn">
+                        <i class="fas fa-paper-plane"></i>
+                        Enviar
+                    </button>
+                </form>
+
+                <div id="successMessage" class="success-message" style="display: none;">
+                    <i class="fas fa-check-circle"></i>
+                    <h3>Mensagem enviada com sucesso!</h3>
+                    <p>Entraremos em contato em breve.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
     <script src="script.js"></script>
     <a href="#" class="floating-contribute-btn" id="contributeBtn">
         <i class="fas fa-handshake"></i>
