@@ -239,26 +239,60 @@ input:checked + .slider:before {
     width: 100%;
 }
 
-.btn {
+/* Estilos comuns para todos os botões */
+.btn, .download-btn, .help-btn, .submit-btn {
     display: flex;
     align-items: center;
     gap: 0.5rem;
     padding: 0.8rem 1.5rem;
+    text-decoration: none;
     background: linear-gradient(135deg, var(--gradient-start) 0%, var(--gradient-end) 100%);
     color: white;
-    text-decoration: none;
     border-radius: 50px;
     font-weight: 500;
     transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
 }
 
-.btn:hover {
+.btn:hover, .download-btn:hover, .help-btn:hover, .submit-btn:hover {
     transform: translateY(-2px);
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
 }
 
-.btn i {
+.btn i, .download-btn i, .help-btn i, .submit-btn i {
     font-size: 1.1rem;
+}
+
+/* Ajustes específicos para o botão do formulário */
+#pdfEmailForm .btn {
+    width: auto;
+    margin: 0 auto;
+    min-width: 200px;
+}
+
+/* Sobrescrever estilos antigos */
+.help-btn {
+    width: auto;
+    justify-content: center;
+}
+
+@media screen and (max-width: 768px) {
+    .help-btn {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+.submit-btn {
+    width: auto;
+    justify-content: center;
+}
+
+@media screen and (max-width: 768px) {
+    .submit-btn {
+        width: 100%;
+    }
 }
 
 /* Modal */
@@ -674,43 +708,13 @@ input:checked + .slider:before {
 
 /* Botão de ajuda no modal info */
 .help-action {
-    margin-top: 30px;
-    text-align: center;
+    display: flex;
+    justify-content: center;
+    margin-top: 2rem;
 }
 
 .help-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    padding: 15px 30px;
-    border: none;
-    border-radius: 12px;
-    background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
-    color: white;
-    font-size: 1.1em;
-    font-weight: 500;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.2);
-}
-
-.help-btn i {
-    font-size: 1.2em;
-}
-
-.help-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(102, 126, 234, 0.3);
-}
-
-/* Ajuste para mobile */
-@media screen and (max-width: 768px) {
-    .help-btn {
-        width: 100%;
-        justify-content: center;
-        padding: 12px 20px;
-        font-size: 1em;
-    }
+    margin: 0 auto;
 }
 
 /* Modal de Formulário de Ajuda */
@@ -767,49 +771,225 @@ input:checked + .slider:before {
     margin-top: 0.5rem;
 }
 
-.submit-btn {
-    background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+/* Download button styles */
+.download-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.8rem 1.5rem;
+    text-decoration: none;
+    background: linear-gradient(135deg, var(--gradient-start) 0%, var(--gradient-end) 100%);
+    color: white;
+    border-radius: 50px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+.download-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.download-btn i {
+    font-size: 1.1rem;
+}
+
+#pdfEmailForm .download-btn {
+    width: auto;
+    margin: 0 auto;
+    min-width: 200px;
+}
+
+/* Ajuste para mobile */
+@media screen and (max-width: 768px) {
+    .help-modal-content {
+        margin: 10px;
+        padding: 15px;
+    }
+
+    .submit-btn {
+        width: 100%;
+    }
+}
+
+/* Estilos para o formulário PDF */
+#pdfEmailForm {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 2rem;
+}
+
+#pdfEmailForm .input-group {
+    width: 100%;
+    max-width: 400px;
+    margin-bottom: 1.5rem;
+}
+
+#pdfEmailForm .btn {
+    background: linear-gradient(135deg, var(--gradient-start) 0%, var(--gradient-end) 100%);
     color: white;
     border: none;
-    padding: 12px 24px;
-    border-radius: 8px;
+    border-radius: 50px;
+    padding: 0.8rem 1.5rem;
     font-size: 16px;
-    font-weight: 600;
+    font-weight: 500;
     cursor: pointer;
     display: flex;
     align-items: center;
-    justify-content: center;
     gap: 0.5rem;
-    transition: transform 0.3s ease, opacity 0.3s ease;
+    min-width: 200px;
+    transition: all 0.3s ease;
 }
 
-.submit-btn:hover {
+#pdfEmailForm .btn:hover {
     transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
 }
 
-.submit-btn:active {
-    transform: translateY(0);
-    opacity: 0.9;
+#pdfEmailForm .btn i {
+    font-size: 1.1rem;
 }
 
-.success-message {
-    text-align: center;
-    padding: 2rem;
+/* Removendo estilos antigos */
+#pdfEmailForm {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 2rem;
 }
 
-.success-message i {
-    font-size: 48px;
-    color: #4CAF50;
-    margin-bottom: 1rem;
+#pdfEmailForm .input-group {
+    width: 100%;
+    max-width: 400px;
+    margin-bottom: 1.5rem;
 }
 
-.success-message h3 {
+#pdfEmailForm .btn {
+    background: linear-gradient(135deg, var(--gradient-start) 0%, var(--gradient-end) 100%);
+    color: white;
+    border: none;
+    border-radius: 50px;
+    padding: 0.8rem 1.5rem;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    min-width: 200px;
+    transition: all 0.3s ease;
+}
+
+#pdfEmailForm .btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+#pdfEmailForm .btn i {
+    font-size: 1.1rem;
+}
+
+/* Ajuste para mobile */
+@media screen and (max-width: 768px) {
+    .help-modal-content {
+        margin: 10px;
+        padding: 15px;
+    }
+
+    .submit-btn {
+        width: 100%;
+    }
+}
+
+/* Estilos para o formulário PDF */
+#pdfEmailForm {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    margin-top: 2rem;
+}
+
+#pdfEmailForm .input-group {
+    width: 100%;
+    max-width: 400px;
+}
+
+#pdfEmailForm .btn.download-btn {
+    margin: 1.5rem auto 0;
+    min-width: 200px;
+}
+
+/* Removendo margens conflitantes */
+#pdfEmailForm .form-group {
+    margin: 0;
+    gap: 0;
+}
+
+/* Estilos para validação de email */
+#pdfEmailInput.valid {
+    border-color: #2ecc71;
+}
+
+#pdfEmailInput.invalid {
+    border-color: #e74c3c;
+}
+
+#pdfEmailError {
+    color: #e74c3c;
+    font-size: 0.85rem;
+    margin-top: 5px;
+    display: none;
+}
+
+.email-validation-message {
+    font-size: 12px;
+    margin-top: 4px;
+    display: none;
+}
+
+.email-validation-message.error {
+    color: #ff4444;
+    display: block;
+}
+
+/* Form group styles */
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
+
+.input-group {
+    position: relative;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    font-size: 16px;
+    background: transparent;
     color: var(--text-primary);
-    margin-bottom: 0.5rem;
+    transition: border-color 0.3s ease;
 }
 
-.success-message p {
-    color: var(--text-secondary);
+.input-group input:focus {
+    outline: none;
+    border-color: var(--gradient-start);
+}
+
+.error-message {
+    color: var(--accent-color);
+    font-size: 14px;
+    margin-top: 0.5rem;
+    display: block;
 }
 
 /* Animação de fade para o success message */
@@ -828,48 +1008,65 @@ input:checked + .slider:before {
     animation: fadeIn 0.5s ease forwards;
 }
 
-/* Ajuste para mobile */
-@media screen and (max-width: 768px) {
-    .help-modal-content {
-        margin: 10px;
-        padding: 15px;
+/* Adicionando estilos específicos para o botão do formulário PDF */
+.form-button {
+    display: flex;
+    justify-content: center;
+    margin-top: 1.5rem;
+}
+
+.form-button .btn {
+    background: linear-gradient(135deg, var(--gradient-start) 0%, var(--gradient-end) 100%);
+    color: white;
+    border: none;
+    border-radius: 50px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px 30px;
+    line-height: 1;
+}
+
+.form-button .btn i {
+    font-size: 1.1rem;
+    display: flex;
+    align-items: center;
+}
+
+.form-button .btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Success message styles */
+.success-message {
+    text-align: center;
+    padding: 20px;
+    animation: fadeIn 0.3s ease-in;
+}
+
+.success-message i {
+    font-size: 48px;
+    color: #4CAF50;
+    margin-bottom: 15px;
+}
+
+.success-message p {
+    margin: 5px 0;
+    color: #333;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
     }
-
-    .submit-btn {
-        width: 100%;
+    to {
+        opacity: 1;
+        transform: translateY(0);
     }
-}
-
-/* Estilos para o asterisco de campo obrigatório */
-.required::after {
-    content: '*';
-    color: #ff4444;
-    margin-left: 4px;
-}
-
-/* Ajustes para o modal de ajuda */
-.help-modal-content {
-    max-width: 600px;
-}
-
-/* Estilos para validação de email */
-.form-group input[type="email"].invalid {
-    border-color: #ff4444;
-    background-color: #fff8f8;
-}
-
-.form-group input[type="email"].valid {
-    border-color: #4CAF50;
-    background-color: #f8fff8;
-}
-
-.email-validation-message {
-    font-size: 12px;
-    margin-top: 4px;
-    display: none;
-}
-
-.email-validation-message.error {
-    color: #ff4444;
-    display: block;
 }

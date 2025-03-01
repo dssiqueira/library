@@ -222,7 +222,31 @@
             </div>
         </div>
     </div>
-
+    <!-- Modal para Download do PDF -->
+    <div id="pdfModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <div class="modal-header">
+                <h2>Fique por dentro das novidades!</h2>
+            </div>
+            <div class="modal-body">
+                <div class="intro-text">
+                    <p>Prometemos: nada de spam, nada de e-mails chatos, só atualizações realmente úteis sobre o handbook e novos conteúdos que podem te ajudar a transformar sistemas sem perder a cabeça. A gente só aparece quando tiver algo bom para compartilhar!</p>
+                </div>
+                <form id="pdfEmailForm">
+                    <div class="input-group">
+                        <input type="email" id="pdfEmailInput" placeholder="Seu melhor e-mail" required>
+                        <span class="error-message" id="pdfEmailError"></span>
+                    </div>
+                    <div class="form-button">
+                        <button type="submit" class="btn">
+                            <i class="fas fa-download"></i> Baixar Ebook
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
     <script src="script.js"></script>
     <a href="#" class="floating-contribute-btn" id="contributeBtn">
