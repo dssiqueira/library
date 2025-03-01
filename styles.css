@@ -27,12 +27,81 @@
     --scrollbar-thumb: rgba(255, 255, 255, 0.2);
     --scrollbar-thumb-hover: rgba(255, 255, 255, 0.3);
     --modal-bg: rgba(30, 32, 40, 0.98);
-    --primary-color: #2c3e50;
+    --primary-color: #ffffff;
     --secondary-color: #3498db;
     --accent-color: #e74c3c;
     --background-color: #2c3e50;
     --gradient-start: #2c3e50;
     --gradient-end: #3498db;
+}
+
+/* Ajustes específicos para modo escuro */
+[data-theme="dark"] .help-form label,
+[data-theme="dark"] .help-form input,
+[data-theme="dark"] .help-form select,
+[data-theme="dark"] .help-form textarea,
+[data-theme="dark"] .form-group label,
+[data-theme="dark"] .email-input,
+[data-theme="dark"] .modal-content h2,
+[data-theme="dark"] .modal-header h2,
+[data-theme="dark"] .contribute-section h3,
+[data-theme="dark"] .contribute-list li strong,
+[data-theme="dark"] .contribute-list li p,
+[data-theme="dark"] .email-intro,
+[data-theme="dark"] .email-intro p,
+[data-theme="dark"] .email-note,
+[data-theme="dark"] #successModal h2,
+[data-theme="dark"] #successModal .success-message p,
+[data-theme="dark"] #successModal .highlight {
+    color: #ffffff;
+}
+
+[data-theme="dark"] .help-form input::placeholder,
+[data-theme="dark"] .help-form textarea::placeholder {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+[data-theme="dark"] .help-form input,
+[data-theme="dark"] .help-form select,
+[data-theme="dark"] .help-form textarea,
+[data-theme="dark"] .email-input {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+/* Ajustes adicionais para modo escuro */
+[data-theme="dark"] .intro-text,
+[data-theme="dark"] .content-section,
+[data-theme="dark"] .highlight-box p,
+[data-theme="dark"] .char-counter,
+[data-theme="dark"] .error-message,
+[data-theme="dark"] .loader-container p {
+    color: #ffffff;
+}
+
+[data-theme="dark"] .modal-content,
+[data-theme="dark"] .help-form input:focus,
+[data-theme="dark"] .help-form select:focus,
+[data-theme="dark"] .help-form textarea:focus,
+[data-theme="dark"] .email-input:focus {
+    color: #ffffff;
+    border-color: var(--gradient-start);
+}
+
+[data-theme="dark"] .close-modal {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+[data-theme="dark"] .close-modal:hover {
+    color: #ffffff;
+}
+
+[data-theme="dark"] .help-form select {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23ffffff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+}
+
+[data-theme="dark"] .help-form select:focus {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%233498db' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
 }
 
 * {
