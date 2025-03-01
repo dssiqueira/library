@@ -1,4 +1,3 @@
-// Funções utilitárias
 const utils = {
     validateEmail(email) {
         const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -9,7 +8,6 @@ const utils = {
         return new Promise((resolve, reject) => {
             console.log('Iniciando envio do email:', email);
             
-            // Pega a data atual no formato dd/mm/aaaa
             const now = new Date();
             const date = `${String(now.getDate()).padStart(2, '0')}/${String(now.getMonth() + 1).padStart(2, '0')}/${now.getFullYear()}`;
             
@@ -25,7 +23,6 @@ const utils = {
             const fullUrl = `${webhookUrl}?${params}`;
             console.log('URL do webhook:', fullUrl);
             
-            // Tenta primeiro com fetch usando GET
             fetch(fullUrl, {
                 method: 'GET'
             })
@@ -42,66 +39,106 @@ const utils = {
                 })
                 .catch(error => {
                     console.error('Erro detalhado:', error);
-                    
-                    // Se falhar com fetch, tenta com window.open direto
-                    console.log('Tentando com window.open...');
                     window.open(fullUrl, '_blank');
-                    
-                    // Mesmo com erro, resolve para não bloquear o download
                     resolve();
                 });
         });
     },
 
+    showLoader() {
+        const loader = document.getElementById('loader');
+        if (loader) {
+            loader.style.display = 'flex';
+        }
+    },
+
+    hideLoader() {
+        const loader = document.getElementById('loader');
+        if (loader) {
+            loader.style.display = 'none';
+        }
+    },
+
     downloadPDF() {
+        this.showLoader();
+
         const link = document.createElement('a');
         link.href = 'download/teste.pdf';
         link.download = 'handbook.pdf';
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
+
+        setTimeout(() => {
+            this.hideLoader();
+            const successModal = document.getElementById('successModal');
+            if (successModal) {
+                successModal.style.display = 'block';
+                this.createConfetti();
+            }
+        }, 1500);
+    },
+
+    createConfetti() {
+        const confettiContainer = document.createElement('div');
+        confettiContainer.style.position = 'fixed';
+        confettiContainer.style.top = '0';
+        confettiContainer.style.left = '0';
+        confettiContainer.style.width = '100%';
+        confettiContainer.style.height = '100%';
+        confettiContainer.style.pointerEvents = 'none';
+        confettiContainer.style.zIndex = '9999';
+
+        for (let i = 0; i < 10; i++) {
+            const confetti = document.createElement('div');
+            confetti.className = 'confetti';
+            confettiContainer.appendChild(confetti);
+        }
+
+        document.body.appendChild(confettiContainer);
+
+        setTimeout(() => {
+            document.body.removeChild(confettiContainer);
+        }, 5000);
     },
 
     setupModal(modalId, btnSelector, options = {}) {
         const modal = document.getElementById(modalId);
-        const btn = document.querySelector(btnSelector);
-        const closeBtn = modal?.querySelector('.close-modal');
+        if (!modal) return;
 
-        if (modal && btn) {
-            // Abrir modal
-            btn.addEventListener('click', function(e) {
-                e.preventDefault();
-                if (options.onBeforeOpen) {
-                    options.onBeforeOpen();
-                }
-                modal.style.display = 'block';
-            });
+        const closeBtn = modal.querySelector('.close-modal');
+        
+        const closeModal = () => {
+            modal.style.display = 'none';
+            if (options.onClose) options.onClose();
+        };
 
-            // Fechar com X
-            if (closeBtn) {
-                closeBtn.addEventListener('click', function() {
-                    modal.style.display = 'none';
-                    if (options.onClose) {
-                        options.onClose();
-                    }
+        if (btnSelector) {
+            document.querySelectorAll(btnSelector).forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    if (options.onBeforeOpen) options.onBeforeOpen();
+                    if (options.onClick) options.onClick(e);
+                    modal.style.display = 'block';
                 });
-            }
-
-            // Fechar clicando fora
-            modal.addEventListener('click', function(e) {
-                if (e.target === modal) {
-                    modal.style.display = 'none';
-                    if (options.onClose) {
-                        options.onClose();
-                    }
-                }
             });
-
-            // Configurações adicionais
-            if (options.onClick) {
-                modal.addEventListener('click', options.onClick);
-            }
         }
+
+        if (closeBtn) {
+            closeBtn.addEventListener('click', closeModal);
+        }
+
+        window.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                closeModal();
+            }
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && modal.style.display === 'block') {
+                closeModal();
+            }
+        });
     }
 };
 
@@ -113,11 +150,9 @@ document.addEventListener('DOMContentLoaded', function() {
         const currentTheme = localStorage.getItem('theme');
         if (currentTheme) {
             document.documentElement.setAttribute('data-theme', currentTheme);
-            if (currentTheme === 'dark') {
-                checkbox.checked = true;
-            }
+            checkbox.checked = currentTheme === 'dark';
         }
-
+        
         checkbox.addEventListener('change', function() {
             if (this.checked) {
                 document.documentElement.setAttribute('data-theme', 'dark');
@@ -129,28 +164,48 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Configurar todos os modais
-    utils.setupModal('infoModal', '.info-btn');
-    utils.setupModal('imageModal', '.book-cover img', {
-        onClick: function(e) {
-            if (e.target === this) {
-                this.style.display = 'none';
-            }
+    // Setup modals
+    utils.setupModal('imageModal', '.cover-image', {
+        onClick(e) {
+            e.preventDefault();
+            document.querySelector('#imageModal .modal-image').src = e.target.src;
         }
     });
     utils.setupModal('contributeModal', '#contributeBtn');
-    utils.setupModal('emailModal', '#emailBtn');
+    utils.setupModal('infoModal', '.info-btn');
     utils.setupModal('helpModal', '#helpBtn', {
-        onBeforeOpen: function() {
-            const infoModal = document.getElementById('infoModal');
-            if (infoModal) {
-                infoModal.style.display = 'none';
+        onBeforeOpen() {
+            const modal = document.getElementById('helpModal');
+            if (modal) {
+                modal.style.display = 'block';
             }
         }
     });
+    utils.setupModal('emailModal', '#emailBtn');
     utils.setupModal('pdfModal', '.download-btn');
+    utils.setupModal('successModal', null);
 
-    // Configurar formulário PDF
+    // Setup email copy button
+    const copyBtn = document.querySelector('.copy-btn');
+    const emailInput = document.querySelector('.email-input');
+    if (copyBtn && emailInput) {
+        copyBtn.addEventListener('click', async function() {
+            try {
+                await navigator.clipboard.writeText(emailInput.value);
+                copyBtn.classList.add('copied');
+                copyBtn.innerHTML = '<i class="fas fa-check"></i> Copiado!';
+                
+                setTimeout(() => {
+                    copyBtn.classList.remove('copied');
+                    copyBtn.innerHTML = '<i class="fas fa-copy"></i> Copiar';
+                }, 2000);
+            } catch (err) {
+                console.error('Falha ao copiar texto: ', err);
+            }
+        });
+    }
+
+    // Setup PDF form
     const pdfEmailForm = document.getElementById('pdfEmailForm');
     const pdfEmailInput = document.getElementById('pdfEmailInput');
     const pdfEmailError = document.getElementById('pdfEmailError');
@@ -192,48 +247,26 @@ document.addEventListener('DOMContentLoaded', function() {
             }
 
             try {
+                utils.showLoader();
+                pdfModal.style.display = 'none';
+                
                 // Envia o email para o webhook
                 await utils.sendEmailToWebhook(email);
                 
-                // Espera 2 segundos antes de fazer download e fechar
-                setTimeout(() => {
-                    // Faz o download do PDF
-                    utils.downloadPDF();
-                    
-                    // Fecha o modal e limpa o formulário
-                    pdfModal.style.display = 'none';
-                    pdfEmailForm.style.display = 'block';
-                    pdfEmailInput.value = '';
-                    pdfEmailError.textContent = '';
-                    pdfEmailError.style.display = 'none';
-                }, 2000);
+                // Faz o download do PDF
+                utils.downloadPDF();
+                
+                // Limpa o formulário
+                pdfEmailForm.reset();
+                pdfEmailInput.classList.remove('valid', 'invalid');
+                pdfEmailError.textContent = '';
+                pdfEmailError.style.display = 'none';
                 
             } catch (error) {
                 console.error('Erro:', error);
+                utils.hideLoader();
                 pdfEmailError.textContent = 'Ocorreu um erro. Por favor, tente novamente.';
                 pdfEmailError.style.display = 'block';
-            }
-        });
-    }
-
-    // Copiar email
-    const emailModal = document.getElementById('emailModal');
-    const copyBtn = emailModal?.querySelector('.copy-btn');
-    const emailInput = emailModal?.querySelector('.email-input');
-
-    if (copyBtn && emailInput) {
-        copyBtn.addEventListener('click', async function() {
-            try {
-                await navigator.clipboard.writeText(emailInput.value);
-                copyBtn.classList.add('copied');
-                copyBtn.innerHTML = '<i class="fas fa-check"></i> Copiado!';
-                
-                setTimeout(() => {
-                    copyBtn.classList.remove('copied');
-                    copyBtn.innerHTML = '<i class="fas fa-copy"></i> Copiar';
-                }, 2000);
-            } catch (err) {
-                console.error('Falha ao copiar texto: ', err);
             }
         });
     }

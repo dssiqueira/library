@@ -208,7 +208,7 @@
                         <div class="char-counter"><span id="charCount">0</span>/500</div>
                     </div>
 
-                    <button type="submit" class="submit-btn">
+                    <button type="submit" class="btn">
                         <i class="fas fa-paper-plane"></i>
                         Enviar
                     </button>
@@ -226,24 +226,37 @@
     <div id="pdfModal" class="modal">
         <div class="modal-content">
             <span class="close-modal">&times;</span>
-            <div class="modal-header">
-                <h2>Fique por dentro das novidades!</h2>
+            <h2>Fique por dentro das novidades!</h2>
+            <div class="intro-text">
+                <p>Prometemos: nada de spam, nada de e-mails chatos, só atualizações realmente úteis sobre o handbook e novos conteúdos que podem te ajudar a transformar sistemas sem perder a cabeça. A gente só aparece quando tiver algo bom para compartilhar!</p>
             </div>
-            <div class="modal-body">
-                <div class="intro-text">
-                    <p>Prometemos: nada de spam, nada de e-mails chatos, só atualizações realmente úteis sobre o handbook e novos conteúdos que podem te ajudar a transformar sistemas sem perder a cabeça. A gente só aparece quando tiver algo bom para compartilhar!</p>
+            <form id="pdfEmailForm">
+                <div class="form-group">
+                    <input type="email" id="pdfEmailInput" class="email-input" placeholder="Informe seu email" required>
+                    <div id="pdfEmailError" class="error-message"></div>
                 </div>
-                <form id="pdfEmailForm">
-                    <div class="input-group">
-                        <input type="email" id="pdfEmailInput" placeholder="Seu melhor e-mail" required>
-                        <span class="error-message" id="pdfEmailError"></span>
-                    </div>
-                    <div class="form-button">
-                        <button type="submit" class="btn">
-                            <i class="fas fa-download"></i> Baixar Ebook
-                        </button>
-                    </div>
-                </form>
+                <button type="submit" class="btn">
+                    <i class="fas fa-download"></i> Baixar Ebook
+                </button>
+            </form>
+        </div>
+    </div>
+    <!-- Loader -->
+    <div id="loader" class="loader-container">
+        <div class="loader"></div>
+        <p>Preparando seu download...</p>
+    </div>
+    
+    <!-- Modal de Sucesso -->
+    <div id="successModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2>Ebook baixado com sucesso!</h2>
+            <img src="img/success.gif" alt="Sucesso" class="success-gif">
+            <div class="success-message">
+                <p>Valeu por baixar o handbook! Esperamos que ele te ajude a modernizar sistemas sem precisar puxar os cabelos no processo.</p>
+                <p>Se tiver dúvidas, sugestões ou só quiser compartilhar como está aplicando o modelo, ficaremos felizes em ouvir! E claro, se quiser ficar por dentro das novidades, já sabe onde nos encontrar.</p>
+                <p class="highlight">Agora é só colocar a mão na massa!</p>
             </div>
         </div>
     </div>
