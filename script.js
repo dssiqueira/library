@@ -270,4 +270,73 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     }
+
+    // Setup help form
+    const helpForm = document.getElementById('helpForm');
+    const helpEmailInput = document.getElementById('email');
+    const emailValidationMessage = document.querySelector('.email-validation-message');
+    const successMessage = document.getElementById('successMessage');
+
+    if (helpForm && helpEmailInput && emailValidationMessage) {
+        // Validação em tempo real do email
+        helpEmailInput.addEventListener('input', function(e) {
+            const email = e.target.value;
+            
+            if (email.length > 0) {
+                if (utils.validateEmail(email)) {
+                    helpEmailInput.classList.remove('invalid');
+                    helpEmailInput.classList.add('valid');
+                    emailValidationMessage.style.display = 'none';
+                } else {
+                    helpEmailInput.classList.remove('valid');
+                    helpEmailInput.classList.add('invalid');
+                    emailValidationMessage.style.display = 'block';
+                }
+            } else {
+                helpEmailInput.classList.remove('valid', 'invalid');
+                emailValidationMessage.style.display = 'none';
+            }
+        });
+
+        // Submit do formulário de ajuda
+        helpForm.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(this);
+            utils.showLoader();
+
+            try {
+                const response = await fetch('send_email.php', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                const data = await response.json();
+                utils.hideLoader();
+
+                if (data.success) {
+                    helpForm.style.display = 'none';
+                    successMessage.style.display = 'block';
+                    this.reset();
+                } else {
+                    throw new Error(data.message || 'Erro ao enviar mensagem');
+                }
+            } catch (error) {
+                utils.hideLoader();
+                console.error('Erro:', error);
+                alert('Ocorreu um erro ao enviar sua mensagem. Por favor, tente novamente.');
+            }
+        });
+
+        // Character counter for details textarea
+        const detailsTextarea = document.getElementById('details');
+        const charCount = document.getElementById('charCount');
+        
+        if (detailsTextarea && charCount) {
+            detailsTextarea.addEventListener('input', function() {
+                const remaining = this.value.length;
+                charCount.textContent = remaining;
+            });
+        }
+    }
 });

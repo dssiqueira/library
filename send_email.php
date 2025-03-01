@@ -76,13 +76,35 @@ try {
     $headers .= "Reply-To: $email\r\n";
     $headers .= "X-Mailer: PHP/" . phpversion();
 
+    // Debug info
+    $debug_info = [
+        'success' => false,
+        'message' => '',
+        'debug' => [
+            'to' => $to,
+            'subject' => $subject,
+            'headers' => $headers,
+            'php_version' => phpversion(),
+            'server' => $_SERVER['SERVER_SOFTWARE'],
+            'timestamp' => date('Y-m-d H:i:s')
+        ]
+    ];
+
     // Enviar email
     if (mail($to, $subject, $message, $headers)) {
-        echo json_encode(['success' => true, 'message' => 'Email enviado com sucesso']);
+        $debug_info['success'] = true;
+        $debug_info['message'] = 'Email enviado com sucesso';
+        echo json_encode($debug_info);
     } else {
-        throw new Exception('Falha ao enviar email');
+        $error = error_get_last();
+        $debug_info['message'] = 'Falha ao enviar email';
+        $debug_info['debug']['error'] = $error ? $error['message'] : 'Erro desconhecido';
+        throw new Exception($debug_info['message']);
     }
 } catch (Exception $e) {
     http_response_code(500);
-    echo json_encode(['success' => false, 'message' => 'Erro ao enviar email: ' . $e->getMessage()]);
+    $debug_info['message'] = 'Erro ao enviar email: ' . $e->getMessage();
+    $debug_info['debug']['exception'] = $e->getMessage();
+    $debug_info['debug']['trace'] = $e->getTraceAsString();
+    echo json_encode($debug_info);
 }
