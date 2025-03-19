@@ -63,8 +63,8 @@ const utils = {
         this.showLoader();
 
         const link = document.createElement('a');
-        link.href = 'download/teste.pdf';
-        link.download = 'handbook.pdf';
+        link.href = 'download/Handbook-A-evolucao-do-produto-Como-migrar-sem-trauma.pdf';
+        link.download = 'Handbook-A-evolucao-do-produto-Como-migrar-sem-trauma.pdf';
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
