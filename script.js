@@ -4,19 +4,30 @@ const utils = {
         return re.test(String(email).toLowerCase());
     },
 
-    sendEmailToWebhook(email) {
+    sendEmailToWebhook(email, pdfFileName = null) {
         return new Promise((resolve, reject) => {
             console.log('Iniciando envio do email:', email);
             
             const now = new Date();
             const date = `${String(now.getDate()).padStart(2, '0')}/${String(now.getMonth() + 1).padStart(2, '0')}/${now.getFullYear()}`;
             
+            // Determine handbook name based on PDF filename
+            let handbookName = 'Handbook de Desenvolvimento de Software';
+            
+            if (pdfFileName) {
+                if (pdfFileName.includes('Bastidores')) {
+                    handbookName = 'Handbook - Bastidores sem crise';
+                } else if (pdfFileName.includes('evolucao-do-produto')) {
+                    handbookName = 'Handbook - A evolução do produto';
+                }
+            }
+            
             const webhookUrl = 'https://automacao-n8n.wm8h0r.easypanel.host/webhook/196aaae5-9254-442a-8f37-7071428bf53c';
             const params = new URLSearchParams({
                 email: email,
                 source: 'handbook-pdf-download',
                 url: window.location.href,
-                handbook: 'Handbook de Desenvolvimento de Software',
+                handbook: handbookName,
                 download_date: date
             }).toString();
             
@@ -59,12 +70,15 @@ const utils = {
         }
     },
 
-    downloadPDF() {
+    downloadPDF(pdfFileName = null) {
         this.showLoader();
-
+        
+        // Use the provided PDF filename or default to the first ebook
+        const fileName = pdfFileName || 'Handbook-A-evolucao-do-produto-Como-migrar-sem-trauma.pdf';
+        
         const link = document.createElement('a');
-        link.href = 'download/Handbook-A-evolucao-do-produto-Como-migrar-sem-trauma.pdf';
-        link.download = 'Handbook-A-evolucao-do-produto-Como-migrar-sem-trauma.pdf';
+        link.href = `download/${fileName}`;
+        link.download = fileName;
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
@@ -139,7 +153,38 @@ const utils = {
                 closeModal();
             }
         });
-    }
+    },
+    
+    setupDynamicModals(triggerSelector) {
+        const triggers = document.querySelectorAll(triggerSelector);
+        
+        triggers.forEach(trigger => {
+            const modalId = trigger.getAttribute('data-modal');
+            if (!modalId) return;
+            
+            const modal = document.getElementById(modalId);
+            if (!modal) return;
+            
+            const closeBtn = modal.querySelector('.close-modal');
+            
+            trigger.addEventListener('click', (e) => {
+                e.preventDefault();
+                modal.style.display = 'block';
+            });
+            
+            if (closeBtn) {
+                closeBtn.addEventListener('click', () => {
+                    modal.style.display = 'none';
+                });
+            }
+            
+            window.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    modal.style.display = 'none';
+                }
+            });
+        });
+    },
 };
 
 // Inicialização quando o DOM estiver pronto
@@ -164,6 +209,31 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
+    // Store the selected PDF filename when a book is clicked
+    let selectedPdfFilename = '';
+    
+    // Add click event to all cover images to store the selected PDF
+    document.querySelectorAll('.cover-image').forEach(img => {
+        img.addEventListener('click', function() {
+            selectedPdfFilename = this.getAttribute('data-pdf') || 'Handbook-A-evolucao-do-produto-Como-migrar-sem-trauma.pdf';
+        });
+    });
+    
+    // Add click event to all download buttons to store the selected PDF
+    document.querySelectorAll('.download-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            // Find the closest book container
+            const book = this.closest('.book');
+            if (book) {
+                // Get the cover image within this book
+                const img = book.querySelector('.cover-image');
+                if (img) {
+                    selectedPdfFilename = img.getAttribute('data-pdf') || 'Handbook-A-evolucao-do-produto-Como-migrar-sem-trauma.pdf';
+                }
+            }
+        });
+    });
+    
     // Setup modals
     utils.setupModal('imageModal', '.cover-image', {
         onClick(e) {
@@ -172,18 +242,64 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
     utils.setupModal('contributeModal', '#contributeBtn');
-    utils.setupModal('infoModal', '.info-btn');
-    utils.setupModal('helpModal', '#helpBtn', {
+    // Use the data-modal attribute to determine which info modal to show
+    document.querySelectorAll('.info-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            e.preventDefault();
+            const modalId = btn.getAttribute('data-modal');
+            if (modalId) {
+                const modal = document.getElementById(modalId);
+                if (modal) {
+                    modal.style.display = 'block';
+                    
+                    // Add close functionality
+                    const closeBtn = modal.querySelector('.close-modal');
+                    if (closeBtn) {
+                        closeBtn.addEventListener('click', () => {
+                            modal.style.display = 'none';
+                        });
+                    }
+                    
+                    // Close when clicking outside the modal content
+                    window.addEventListener('click', (e) => {
+                        if (e.target === modal) {
+                            modal.style.display = 'none';
+                        }
+                    });
+                }
+            }
+        });
+    });
+    utils.setupModal('helpModal', '#helpBtn1, #helpBtn2', {
         onBeforeOpen() {
             const modal = document.getElementById('helpModal');
             if (modal) {
-                modal.style.display = 'block';
+                modal.querySelector('#details').value = '';
+                modal.querySelector('#charCount').textContent = '0';
             }
         }
     });
     utils.setupModal('emailModal', '#emailBtn');
     utils.setupModal('pdfModal', '.download-btn');
     utils.setupModal('successModal', null);
+
+    // Help button handlers for each info modal
+    const helpBtn1 = document.getElementById('helpBtn1');
+    const helpBtn2 = document.getElementById('helpBtn2');
+    
+    if (helpBtn1) {
+        helpBtn1.addEventListener('click', () => {
+            document.getElementById('infoModal1').style.display = 'none';
+            document.getElementById('helpModal').style.display = 'block';
+        });
+    }
+    
+    if (helpBtn2) {
+        helpBtn2.addEventListener('click', () => {
+            document.getElementById('infoModal2').style.display = 'none';
+            document.getElementById('helpModal').style.display = 'block';
+        });
+    }
 
     // Setup email copy button
     const copyBtn = document.querySelector('.copy-btn');
@@ -250,11 +366,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 utils.showLoader();
                 pdfModal.style.display = 'none';
                 
-                // Envia o email para o webhook
-                await utils.sendEmailToWebhook(email);
+                // Envia o email para o webhook com o nome do PDF selecionado
+                await utils.sendEmailToWebhook(email, selectedPdfFilename);
                 
-                // Faz o download do PDF
-                utils.downloadPDF();
+                // Faz o download do PDF com o arquivo selecionado
+                utils.downloadPDF(selectedPdfFilename);
                 
                 // Limpa o formulário
                 pdfEmailForm.reset();

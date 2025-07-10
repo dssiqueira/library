@@ -30,7 +30,7 @@
         <div class="bookshelf">
             <div class="book">
                 <div class="book-cover">
-                    <img src="https://iili.io/3drMNcJ.png" alt="Handbook - A evolução do produto: Como migrar sem trauma" class="cover-image">
+                    <img src="https://iili.io/3drMNcJ.png" alt="Handbook - A evolução do produto: Como migrar sem trauma" class="cover-image" data-pdf="Handbook-A-evolucao-do-produto-Como-migrar-sem-trauma.pdf">
                 </div>
                 <div class="book-info">
                     <h2>Handbook - A evolução do produto</h2>
@@ -39,7 +39,24 @@
                         <a href="#" class="btn download-btn">
                             <i class="fas fa-download"></i> PDF
                         </a>
-                        <a href="#" class="btn info-btn">
+                        <a href="#" class="btn info-btn" data-modal="infoModal1">
+                            <i class="fas fa-info-circle"></i> Info
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="book">
+                <div class="book-cover">
+                    <img src="https://iili.io/FED3nKx.md.png" alt="Handbook - Bastidores sem crise: O guia realista de auditoria e rastreabilidade para produto digital" class="cover-image" data-pdf="Handbook-Bastidores-sem-crise-O-guia-realista-de-auditoria-e-rastreabilidade-para-produto-digital.pdf">
+                </div>
+                <div class="book-info">
+                    <h2>Handbook - Bastidores sem crise</h2>
+                    <p class="subtitle">O guia realista de auditoria e rastreabilidade para produto digital</p>
+                    <div class="buttons">
+                        <a href="#" class="btn download-btn">
+                            <i class="fas fa-download"></i> PDF
+                        </a>
+                        <a href="#" class="btn info-btn" data-modal="infoModal2">
                             <i class="fas fa-info-circle"></i> Info
                         </a>
                     </div>
@@ -55,8 +72,8 @@
         </div>
     </div>
 
-    <!-- Modal para Saiba Mais -->
-    <div id="infoModal" class="modal">
+    <!-- Modal para Saiba Mais - Handbook 1 -->
+    <div id="infoModal1" class="modal">
         <div class="modal-content">
             <span class="close-modal">&times;</span>
             <div class="modal-header">
@@ -81,9 +98,44 @@
                 </div>
 
                 <div class="help-action">
-                    <button class="help-btn" id="helpBtn">
+                    <button class="help-btn" id="helpBtn1">
                         <i class="fas fa-hands-helping"></i>
                         Quero ajuda para usar esse modelo
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Modal para Saiba Mais - Handbook 2 -->
+    <div id="infoModal2" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <div class="modal-header">
+                <h2>Handbook de Auditoria e Rastreabilidade</h2>
+            </div>
+            <div class="modal-body">
+                <div class="intro-text">
+                    <p>Em um cenário onde a transparência é cada vez mais valorizada, a capacidade de auditar e rastrear decisões em produtos digitais se torna um diferencial competitivo. Este guia apresenta uma abordagem realista para implementar práticas de auditoria sem criar burocracia desnecessária.</p>
+                </div>
+
+                <div class="content-section">
+                    <p>O handbook aborda desde os fundamentos da rastreabilidade até técnicas avançadas de auditoria, com foco em manter a agilidade do desenvolvimento enquanto se cria um histórico confiável de decisões e mudanças.</p>
+                </div>
+
+                <div class="content-section">
+                    <p>Com exemplos práticos e templates prontos para uso, este material ajuda times de produto a implementar processos que garantem conformidade sem sacrificar a velocidade de entrega.</p>
+                </div>
+
+                <div class="highlight-box">
+                    <i class="fas fa-lightbulb"></i>
+                    <p>Se você busca equilibrar conformidade e agilidade em seu produto digital, evitando crises de auditoria, este handbook é seu guia definitivo.</p>
+                </div>
+
+                <div class="help-action">
+                    <button class="help-btn" id="helpBtn2">
+                        <i class="fas fa-hands-helping"></i>
+                        Quero ajuda para implementar essas práticas
                     </button>
                 </div>
             </div>
