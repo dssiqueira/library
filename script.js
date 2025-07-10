@@ -189,6 +189,8 @@ const utils = {
 
 // Inicialização quando o DOM estiver pronto
 document.addEventListener('DOMContentLoaded', function() {
+    // Variável global para armazenar o PDF selecionado
+    window.selectedPdfFilename = null;
     // Theme switcher
     const checkbox = document.getElementById('checkbox');
     if (checkbox) {
@@ -209,31 +211,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Store the selected PDF filename when a book is clicked
-    let selectedPdfFilename = '';
-    
-    // Add click event to all cover images to store the selected PDF
-    document.querySelectorAll('.cover-image').forEach(img => {
-        img.addEventListener('click', function() {
-            selectedPdfFilename = this.getAttribute('data-pdf') || 'Handbook-A-evolucao-do-produto-Como-migrar-sem-trauma.pdf';
-        });
-    });
-    
-    // Add click event to all download buttons to store the selected PDF
-    document.querySelectorAll('.download-btn').forEach(btn => {
-        btn.addEventListener('click', function() {
-            // Find the closest book container
-            const book = this.closest('.book');
-            if (book) {
-                // Get the cover image within this book
-                const img = book.querySelector('.cover-image');
-                if (img) {
-                    selectedPdfFilename = img.getAttribute('data-pdf') || 'Handbook-A-evolucao-do-produto-Como-migrar-sem-trauma.pdf';
-                }
-            }
-        });
-    });
-    
     // Setup modals
     utils.setupModal('imageModal', '.cover-image', {
         onClick(e) {
@@ -242,64 +219,20 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
     utils.setupModal('contributeModal', '#contributeBtn');
-    // Use the data-modal attribute to determine which info modal to show
-    document.querySelectorAll('.info-btn').forEach(btn => {
-        btn.addEventListener('click', (e) => {
-            e.preventDefault();
-            const modalId = btn.getAttribute('data-modal');
-            if (modalId) {
-                const modal = document.getElementById(modalId);
-                if (modal) {
-                    modal.style.display = 'block';
-                    
-                    // Add close functionality
-                    const closeBtn = modal.querySelector('.close-modal');
-                    if (closeBtn) {
-                        closeBtn.addEventListener('click', () => {
-                            modal.style.display = 'none';
-                        });
-                    }
-                    
-                    // Close when clicking outside the modal content
-                    window.addEventListener('click', (e) => {
-                        if (e.target === modal) {
-                            modal.style.display = 'none';
-                        }
-                    });
-                }
-            }
-        });
-    });
-    utils.setupModal('helpModal', '#helpBtn1, #helpBtn2', {
+    utils.setupModal('helpModal', '.help-btn', {
         onBeforeOpen() {
             const modal = document.getElementById('helpModal');
-            if (modal) {
-                modal.querySelector('#details').value = '';
-                modal.querySelector('#charCount').textContent = '0';
+            const form = modal.querySelector('#helpForm');
+            const successMessage = modal.querySelector('#successMessage');
+            if (form && successMessage) {
+                form.style.display = 'block';
+                successMessage.style.display = 'none';
             }
         }
     });
     utils.setupModal('emailModal', '#emailBtn');
     utils.setupModal('pdfModal', '.download-btn');
     utils.setupModal('successModal', null);
-
-    // Help button handlers for each info modal
-    const helpBtn1 = document.getElementById('helpBtn1');
-    const helpBtn2 = document.getElementById('helpBtn2');
-    
-    if (helpBtn1) {
-        helpBtn1.addEventListener('click', () => {
-            document.getElementById('infoModal1').style.display = 'none';
-            document.getElementById('helpModal').style.display = 'block';
-        });
-    }
-    
-    if (helpBtn2) {
-        helpBtn2.addEventListener('click', () => {
-            document.getElementById('infoModal2').style.display = 'none';
-            document.getElementById('helpModal').style.display = 'block';
-        });
-    }
 
     // Setup email copy button
     const copyBtn = document.querySelector('.copy-btn');
