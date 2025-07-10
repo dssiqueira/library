@@ -185,6 +185,121 @@ input:checked + .slider .fa-moon {
     opacity: 0;
 }
 
+/* Filtro de categorias */
+.category-filter {
+    background-color: white;
+    border-radius: 8px;
+    padding: 12px 15px;
+    margin-bottom: 30px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    text-align: center;
+}
+
+.category-toggle-btn {
+    background: none;
+    border: none;
+    color: #555;
+    font-size: 0.9rem;
+    padding: 8px 12px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    margin: 0 auto;
+    gap: 8px;
+    transition: all 0.2s ease;
+}
+
+.category-toggle-btn:hover {
+    color: var(--accent-color);
+}
+
+.category-toggle-btn i:last-child {
+    font-size: 0.8rem;
+    transition: transform 0.3s ease;
+}
+
+.category-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+    max-height: 200px;
+    overflow: hidden;
+    transition: max-height 0.3s ease, opacity 0.3s ease, margin 0.3s ease;
+}
+
+.category-list.expanded {
+    max-height: 200px;
+    opacity: 1;
+    margin-top: 10px;
+}
+
+.category-list.collapsed {
+    max-height: 0;
+    opacity: 0;
+    margin-top: 0;
+    pointer-events: none;
+}
+
+.category-btn {
+    background-color: #f5f5f5;
+    border: none;
+    border-radius: 20px;
+    padding: 8px 16px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    color: #555;
+    margin: 0 4px;
+    font-weight: 400;
+}
+
+.category-btn:hover {
+    background-color: #e0e0e0;
+    color: #333;
+}
+
+.category-btn.active {
+    background-color: var(--accent-color);
+    color: white;
+    font-weight: 500;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Tags de categoria */
+.book-categories {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin: 10px 0;
+}
+
+.category-tag {
+    background-color: var(--bg-secondary);
+    color: var(--text-secondary);
+    font-size: 0.75rem;
+    padding: 3px 8px;
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+}
+
+/* Mensagem de categoria vazia */
+.empty-category-message {
+    text-align: center;
+    padding: 40px 20px;
+    color: var(--text-secondary);
+}
+
+.empty-category-message i {
+    font-size: 3rem;
+    margin-bottom: 15px;
+    opacity: 0.5;
+}
+
+.empty-category-message p {
+    font-size: 1.1rem;
+}
+
 /* Estilos base */
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;

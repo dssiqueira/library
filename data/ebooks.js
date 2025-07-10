@@ -6,6 +6,7 @@ const ebooksData = [
         subtitle: "Como migrar sem trauma",
         coverImage: "https://iili.io/3drMNcJ.png",
         pdfFile: "Handbook-A-evolucao-do-produto-Como-migrar-sem-trauma.pdf",
+        categories: ["Produto", "Modernização", "Desenvolvimento"],
         modalId: "infoModal1",
         modalTitle: "Handbook do Modelo de Estrangulamento",
         modalContent: `
@@ -33,6 +34,7 @@ const ebooksData = [
         subtitle: "O guia realista de auditoria e rastreabilidade para produto digital",
         coverImage: "https://iili.io/FED3nKx.md.png",
         pdfFile: "Handbook-Bastidores-sem-crise-O-guia-realista-de-auditoria-e-rastreabilidade-para-produto-digital.pdf",
+        categories: ["Produto", "Governança", "Compliance"],
         modalId: "infoModal2",
         modalTitle: "Handbook de Auditoria e Rastreabilidade",
         modalContent: `
