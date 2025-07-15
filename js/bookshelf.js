@@ -291,9 +291,9 @@ class Bookshelf {
                         // Armazena o nome do PDF selecionado em uma variável global
                         window.selectedPdfFilename = coverImage.dataset.pdf;
                         
-                        // Abre o modal de email
-                        const emailModal = document.getElementById('emailModal');
-                        if (emailModal) emailModal.style.display = 'block';
+                        // Abre o modal de PDF
+                        const pdfModal = document.getElementById('pdfModal');
+                        if (pdfModal) pdfModal.style.display = 'block';
                     }
                 }
             }
