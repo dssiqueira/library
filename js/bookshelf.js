@@ -298,6 +298,35 @@ class Bookshelf {
                 }
             }
         });
+        
+        // Event listener para visualização da capa em tamanho maior
+        this.bookshelfContainer.addEventListener('click', (e) => {
+            if (e.target.classList.contains('cover-image')) {
+                e.preventDefault();
+                const bookElement = e.target.closest('.book');
+                if (bookElement) {
+                    const coverImage = e.target;
+                    const title = bookElement.querySelector('h2').textContent;
+                    const subtitle = bookElement.querySelector('.subtitle').textContent;
+                    
+                    // Preenche o modal com os dados da capa
+                    const coverModal = document.getElementById('coverModal');
+                    const coverModalImage = document.getElementById('coverModalImage');
+                    const coverModalTitle = document.getElementById('coverModalTitle');
+                    const coverModalSubtitle = document.getElementById('coverModalSubtitle');
+                    
+                    if (coverModal && coverModalImage && coverModalTitle && coverModalSubtitle) {
+                        coverModalImage.src = coverImage.src;
+                        coverModalImage.alt = coverImage.alt;
+                        coverModalTitle.textContent = title;
+                        coverModalSubtitle.textContent = subtitle;
+                        
+                        // Abre o modal
+                        coverModal.style.display = 'block';
+                    }
+                }
+            }
+        });
 
         // Event listener para os botões de info
         this.bookshelfContainer.addEventListener('click', (e) => {
